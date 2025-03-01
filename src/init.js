@@ -3,7 +3,7 @@ import 'bootstrap'
 import * as yup from 'yup'
 
 import initView from './watchers.js';
-import ru from './locales/ru.js';
+import resources from './locales/index.js';
 import locale from './locales/locale.js';
 
 export default () => {
@@ -38,12 +38,9 @@ export default () => {
       };
     
       const i18n = i18next.createInstance();
-      i18n.init({
+      return i18n.init({
         lng: 'ru',
-        debug: true,
-        resources: {
-          ru,
-        },
+        resources,
       })
       .then(() => {
         yup.setLocale(locale);
