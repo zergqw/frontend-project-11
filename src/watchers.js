@@ -1,5 +1,4 @@
 import onChange from 'on-change';
-
 export default (initState, elements, i18next) => {
     const handleForm = () => {
         const { form: { error, valid } } = initState;
@@ -89,17 +88,17 @@ export default (initState, elements, i18next) => {
         postbox.appendChild(fragmentStructure)
         }     
     const handleLoadingProcess = () => {
-        const {LoadingProcess} = initState
+        const {loadingProcess} = initState
         const {submit, input, feedback} = elements
-        switch (LoadingProcess.status) {
+        switch (loadingProcess.status) {
             case 'failed':
-                submit.disable = false
+                submit.disabled = false
                 input.removeAttribute('readonly')
                 feedback.classList.add('text-danger')
-                feedback.textContent = i18next.t([`errors.${LoadingProcess.error}`, 'errors.oknown'])
+                feedback.textContent = i18next.t([`errors.${loadingProcess.error}`, 'errors.oknown'])
                 break
             case 'idle':
-                submit.disable = false
+                submit.disabled = false
                 input.removeAttribute('readonly')
                 input.value = ''
                 feedback.classList.add('text-success')
@@ -107,14 +106,14 @@ export default (initState, elements, i18next) => {
                 input.focus()
                 break  
             case 'loading':
-                submit.disable = true
+                submit.disabled = true
                 input.removeAttribute('readonly', true)
                 feedback.classList.remove('text-success')
                 feedback.classList.remove('text-danger')
                 feedback.textContent = ''
                 break 
             default:
-                throw new Error(`'Unknown loadingProcess status: '${LoadingProcess.status}`)
+                throw new Error(`'Unknown loadingProcess status: '${loadingProcess.status}`)
 
         }
     }
