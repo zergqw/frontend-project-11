@@ -12,10 +12,10 @@ import parse from './rss.js';
 
 export default () => {
     const elements = {
-        form: document.querySelector('.fss-form'),
-        input: document.querySelector('.fss-form input'),
+        form: document.querySelector('.rss-form'),
+        input: document.querySelector('.rss-form input'),
         feedback: document.querySelector('.feedback'),
-        submit: document.querySelector('.fss-form button[type="submit"]'),
+        submit: document.querySelector('.rss-form button[type="submit"]'),
         postBox: document.querySelector('.posts'),
         feedsBox: document.querySelector('.feeds'),
         modal: {
