@@ -88,6 +88,7 @@ export default (initState, elements, i18next) => {
         postbox.appendChild(fragmentStructure)
         }     
     const handleLoadingProcess = () => {
+        console.log(loadingProcess)
         const {loadingProcess} = initState
         const {submit, input, feedback} = elements
         switch (loadingProcess.status) {
