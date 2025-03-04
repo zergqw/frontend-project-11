@@ -30,7 +30,7 @@ export default () => {
         if (e.isParsingError) {
             return 'noRss'
         }
-        if (e.isAxionsError) {
+        if (e.isAxiosError) {
             return 'network'
         }
         return 'unknow'

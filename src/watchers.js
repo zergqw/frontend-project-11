@@ -27,7 +27,6 @@ export default (initState, elements, i18next) => {
 
         const feedsList = document.createElement('ul');
         feedsList.classList.add('list-group', 'border-0', 'rounded-0');
-
         const feedsListItems = feeds.map((feed) => {
             const element = document.createElement('li');
             element.classList.add('list-group-item', 'border-0', 'border-end-0');
@@ -47,7 +46,7 @@ export default (initState, elements, i18next) => {
     }
     const handlePosts = () => {
         const { posts } = initState;
-        const { postbox } = elements;
+        const { postBox } = elements;
 
         const fragmentStructure = document.createElement('div');
         fragmentStructure.classList.add('card', 'border-0');
@@ -84,26 +83,26 @@ export default (initState, elements, i18next) => {
             });
         postsList.append(...postsListItems)
         fragmentStructure.appendChild(postsList)
-        postbox.innerHTML = ''
-        postbox.appendChild(fragmentStructure)
+        postBox.innerHTML = ''
+        postBox.appendChild(fragmentStructure)
         }     
     const handleLoadingProcess = () => {
-        console.log(loadingProcess)
         const {loadingProcess} = initState
+        console.log(initState)
         const {submit, input, feedback} = elements
         switch (loadingProcess.status) {
             case 'failed':
                 submit.disabled = false
                 input.removeAttribute('readonly')
                 feedback.classList.add('text-danger')
-                feedback.textContent = i18next.t([`errors.${loadingProcess.error}`, 'errors.oknown'])
+                feedback.textContent = i18next.t([`errors.${loadingProcess.error}`, 'errors.unknow'])
                 break
             case 'idle':
                 submit.disabled = false
                 input.removeAttribute('readonly')
                 input.value = ''
                 feedback.classList.add('text-success')
-                feedback.textContent = i18next.t('loading.success')
+                feedback.textContent = i18next.t('success')
                 input.focus()
                 break  
             case 'loading':
