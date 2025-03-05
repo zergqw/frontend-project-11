@@ -10,7 +10,9 @@ import resources from './locales/index.js';
 import locale from './locales/locale.js';
 import parse from './rss.js';
 
+
 export default () => {
+    const fetchingTimeout = 5000
     const elements = {
         form: document.querySelector('.rss-form'),
         input: document.querySelector('.rss-form input'),
@@ -26,6 +28,7 @@ export default () => {
         spanSpinner: document.createElement('span'),
         spanLoading: document.createElement('span'),
       };
+
     const getLoadingProcessErrorType = (e) => {
         if (e.isParsingError) {
             return 'noRss'
@@ -35,6 +38,7 @@ export default () => {
         }
         return 'unknow'
     }
+
     const initialState = {
         rssForm: {
           state: 'filling',
@@ -48,12 +52,36 @@ export default () => {
           error: null,
         },
       };
+
     const addProxy = (url) => {
         const urlWithProxy = new URL('/get', 'https://allorigins.hexlet.app')
         urlWithProxy.searchParams.set('url', url)
         return urlWithProxy.toString()
 
     }
+
+    const fetchNewPosts = (watchedState) => {
+        console.log('1')
+        const promises = watchedState.feeds.map((feed) => {
+            const urlWithProxy = addProxy(feed.url);
+            return axios.get(urlWithProxy)
+                .then((response) => {
+                const feedData = parse(response.data.contents);
+                const newPosts = feedData.items.map((item) => ({ ...item, channelId: feed.id }));
+                const oldPosts = watchedState.posts.filter((post) => post.channelId === feed.id);
+                const posts = _.differenceWith(newPosts, oldPosts, (p1, p2) => p1.title === p2.title)
+                 .map((post) => ({ ...post, id: _.uniqueId() }));
+                 watchedState.posts.unshift(...posts);
+                })
+            .catch((e) => {
+                console.error(e);
+            });
+        });
+        Promise.all(promises).finally(() => {
+            setTimeout(() => fetchNewPosts(watchedState), fetchingTimeout);
+        });
+    }
+
     const loadRss = (watchedState, url) => {
         watchedState.loadingProcess.status = 'loading';
         const urlWithProxy = addProxy(url);
@@ -122,6 +150,9 @@ export default () => {
                 }
             )
         })
+
+    setTimeout(() => fetchNewPosts(watchedState), fetchingTimeout)
     })
+
     return promise
 }
