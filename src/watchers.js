@@ -45,7 +45,7 @@ export default (initState, elements, i18next) => {
         feedsBox.appendChild(fragmentStructure);
     }
     const handlePosts = () => {
-        const { posts } = initState;
+        const { posts, ui } = initState;
         const { postBox } = elements;
 
         const fragmentStructure = document.createElement('div');
@@ -65,7 +65,8 @@ export default (initState, elements, i18next) => {
             element.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start','border-0', 'border-end')
             const link = document.createElement('a');
             link.setAttribute('href', post.link);
-            link.classList.add('fw-bold');
+            const className = ui.seenPosts.has(post.id) ? ['fw-normal', 'link-secondary'] : ['fw-bold']
+            link.classList.add(...className);
             link.dataset.id = post.id;
             link.textContent = post.title;
             link.setAttribute('target', '_blank');
@@ -86,9 +87,9 @@ export default (initState, elements, i18next) => {
         postBox.innerHTML = ''
         postBox.appendChild(fragmentStructure)
         }     
+   
     const handleLoadingProcess = () => {
         const {loadingProcess} = initState
-        console.log(initState)
         const {submit, input, feedback} = elements
         switch (loadingProcess.status) {
             case 'failed':
@@ -117,6 +118,17 @@ export default (initState, elements, i18next) => {
 
         }
     }
+    const handleModal = () => {
+        const post = initState.posts.find(({ id }) => id === initState.modal.postId);
+        const title = elements.modal.querySelector('.modal-title');
+        const body = elements.modal.querySelector('.modal-body');
+        const fullArticleBtn = elements.modal.querySelector('.full-article');
+
+        title.textContent = post.title;
+        body.textContent = post.description;
+        fullArticleBtn.href = post.link;
+
+    }
         const watchedState = onChange(initState, (path) => {
             switch (path) {
                 case 'form':
@@ -129,6 +141,12 @@ export default (initState, elements, i18next) => {
                     handleLoadingProcess()
                     break
                 case 'posts':
+                    handlePosts()
+                    break
+                case 'modal.postId':
+                    handleModal()
+                    break
+                case 'ui.seenPosts':
                     handlePosts()
                     break
                 default:

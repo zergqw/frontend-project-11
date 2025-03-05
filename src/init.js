@@ -20,13 +20,7 @@ export default () => {
         submit: document.querySelector('.rss-form button[type="submit"]'),
         postBox: document.querySelector('.posts'),
         feedsBox: document.querySelector('.feeds'),
-        modal: {
-          title: document.querySelector('.modal-title'),
-          body: document.querySelector('.modal-body'),
-          footer: document.querySelector('.modal-footer'),
-        },
-        spanSpinner: document.createElement('span'),
-        spanLoading: document.createElement('span'),
+        modal: document.querySelector('#modal'),
       };
 
     const getLoadingProcessErrorType = (e) => {
@@ -40,28 +34,34 @@ export default () => {
     }
 
     const initialState = {
-        rssForm: {
-          state: 'filling',
-          error: null,
-          valid: true,
-        },
         feeds: [],
         posts: [],
+        form:{
+            error:null,
+            valid:false,
+            status:'filling',
+        },
         loadingProcess: {
           status: 'idle',
           error: null,
+        },
+        modal: {
+            postId: null,
+        },
+        ui: {
+            seenPosts: new Set(),
         },
       };
 
     const addProxy = (url) => {
         const urlWithProxy = new URL('/get', 'https://allorigins.hexlet.app')
         urlWithProxy.searchParams.set('url', url)
+        urlWithProxy.searchParams.set('disableCache', true)
         return urlWithProxy.toString()
 
     }
 
     const fetchNewPosts = (watchedState) => {
-        console.log('1')
         const promises = watchedState.feeds.map((feed) => {
             const urlWithProxy = addProxy(feed.url);
             return axios.get(urlWithProxy)
@@ -147,11 +147,18 @@ export default () => {
                             valid: false,
                         }
                     }   
-                }
-            )
+                })
         })
 
-    setTimeout(() => fetchNewPosts(watchedState), fetchingTimeout)
+        elements.postBox.addEventListener('click', (evt) => {
+            if (!('id' in evt.target.dataset)) {
+                return
+            }
+            const {id} = evt.target.dataset
+            watchedState.modal.postId = String(id)
+            watchedState.ui.seenPosts.add(id)
+        })    
+        setTimeout(() => fetchNewPosts(watchedState), fetchingTimeout)
     })
 
     return promise
