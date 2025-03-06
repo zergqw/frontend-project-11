@@ -1,4 +1,4 @@
-@import "~bootstrap";
+@use "~bootstrap" as *;
 
 .text-muted {
     color: #6c757d !important;
