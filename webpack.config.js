@@ -1,5 +1,5 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-
+import webpack from 'webpack';
 export default {
     // eslint-disable-next-line no-undef
     mode: process.env.NODE_ENV || 'development',
@@ -9,6 +9,7 @@ export default {
             {
                 test: /\.scss$/, 
                 use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
+                
             },
             {
                 test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
@@ -24,6 +25,9 @@ export default {
         new HtmlWebpackPlugin({
             template: 'index.html',
         }),
+        new webpack.IgnorePlugin({
+            resourceRegExp: /sass-loader/
+        })
     ],
     output: {
         clean: true,
