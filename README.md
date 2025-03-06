@@ -1,5 +1,7 @@
 Описание проекта: сервис для агрегации RSS-потоков, который позволяет удобно читать разнообразные источники (блоги).
+
 Стек: JavaScript, HTML5, CSS3, Node.js, Axios, Github, Webpack, Bootstrap, Yup, i18next, on-change, lodash.
+
 Сам проект: https://frontend-project-11-p35pdmmgw-zergs-projects-f28bafd4.vercel.app/
 
 ### Hexlet tests and linter status:
