@@ -97,26 +97,26 @@ export default (initState, elements, i18next) => {
 
     switch (loadingProcess.status) {
     case 'failed':
-        submit.disabled = false;
-        input.removeAttribute('readonly');
-        feedback.classList.add('text-danger');
-        feedback.textContent = i18next.t(`errors.${loadingProcess.error}`);
-        break;
+      submit.disabled = false;
+      input.removeAttribute('readonly');
+      feedback.classList.add('text-danger');
+      feedback.textContent = i18next.t(`errors.${loadingProcess.error}`);
+      break;
     case 'idle':
-        submit.disabled = false;
-        input.removeAttribute('readonly');
-        input.value = '';
-        feedback.classList.add('text-success');
-        feedback.textContent = i18next.t('success');
-        input.focus();
-        break;
+      submit.disabled = false;
+      input.removeAttribute('readonly');
+      input.value = '';
+      feedback.classList.add('text-success');
+      feedback.textContent = i18next.t('success');
+      input.focus();
+      break;
     case 'loading':
-        submit.disabled = true;
-        input.setAttribute('readonly', true);
-        feedback.textContent = '';
-        break;
+      submit.disabled = true;
+      input.setAttribute('readonly', true);
+      feedback.textContent = '';
+      break;
     default:
-        throw new Error(`Unknown loadingProcess status: ${loadingProcess.status}`);
+      throw new Error(`Unknown loadingProcess status: ${loadingProcess.status}`);
     }
   };
 
@@ -133,25 +133,25 @@ export default (initState, elements, i18next) => {
   const watchedState = onChange(initState, (path) => {
     switch (path) {
     case 'form':
-        handleForm();
-        break;
+      handleForm();
+      break;
     case 'feeds':
-        handleFeeds();
-        break;
+      handleFeeds();
+      break;
     case 'loadingProcess.status':
-        handleLoadingProcess();
-        break;
+      handleLoadingProcess();
+      break;
     case 'posts':
-        handlePosts();
-        break;
+      handlePosts();
+      break;
     case 'modal.postId':
-        handleModal();
-        break;
+      handleModal();
+      break;
     case 'ui.seenPosts':
-        handlePosts();
-        break;
+      handlePosts();
+      break;
     default:
-        break;
+      break;
     }
   });
 
