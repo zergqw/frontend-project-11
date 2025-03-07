@@ -89,8 +89,8 @@ export default () => {
     });
   };
 
-  const loadRss = (watchedState, url) => {
-    watchedState.loadingProcess.status = 'loading';
+  const loadRss = (watchedState1, url) => {
+    watchedState1.loadingProcess.status = 'loading';
     const urlWithProxy = addProxy(url);
     return axios.get(urlWithProxy)
       .then((response) => {
@@ -99,20 +99,20 @@ export default () => {
           url, id: _.uniqueId(), title: data.title, description: data.description,
         };
         const posts = data.items.map((item) => ({ ...item, channelId: feed.id, id: _.uniqueId() }));
-        watchedState.posts.unshift(...posts);
-        watchedState.feeds.unshift(feed);
+        watchedState1.posts.unshift(...posts);
+        watchedState1.feeds.unshift(feed);
 
-        watchedState.loadingProcess.error = null;
-        watchedState.loadingProcess.status = 'idle';
-        watchedState.form = {
-          ...watchedState.form,
+        watchedState1.loadingProcess.error = null;
+        watchedState1.loadingProcess.status = 'idle';
+        watchedState1.form = {
+          ...watchedState1.form,
           status: 'filling',
           error: null,
         };
       })
       .catch((e) => {
-        watchedState.loadingProcess.error = getLoadingProcessErrorType(e);
-        watchedState.loadingProcess.status = 'failed';
+        watchedState1.loadingProcess.error = getLoadingProcessErrorType(e);
+        watchedState1.loadingProcess.status = 'failed';
       });
   };
   const i18n = i18next.createInstance();
