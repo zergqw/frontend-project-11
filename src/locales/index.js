@@ -1,2 +1,2 @@
-import ru from './ru.js'
-export default {ru}
+import ru from './ru.js';
+export default {ru};
