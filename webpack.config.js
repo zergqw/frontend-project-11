@@ -7,10 +7,10 @@ export default {
     rules: [
       {   test: /\.css$/, use: ['style-loader', 'css-loader', 'postcss-loader'] },
       {
-        test: /\.scss$/, 
+        test: /\.scss$/,
         use: [
-          'style-loader', 
-          'css-loader', 
+          'style-loader',
+          'css-loader',
           {
             loader: 'sass-loader',
             options: {
@@ -18,15 +18,15 @@ export default {
                 quietDeps: true, // Не выводить предупреждения о депрекации
               },
             },
-          }, 
+          },
           'postcss-loader'
         ],
       },
       {
-        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: 'url-loader?limit=10000',
       },
-      {   
+      {
         test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
         use: 'file-loader',
       },

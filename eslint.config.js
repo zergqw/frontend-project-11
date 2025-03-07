@@ -11,10 +11,15 @@ export default [
   pluginJs.configs.recommended,
   {
     rules: {
-      'indent': ['error', 2],
-      'semi': ['error', 'always'],
-      'quotes': ['error', 'single'], // Используйте одинарные кавычки
-      'no-console': 'warn', // Предупреждение о console.log
+      indent: ['error', 2],
+      semi: ['error', 'always'],
+      'quote-props': ['error', 'as-needed'],
+      'eol-last': ['error', 'always'],
+      'no-multiple-empty-lines': ['error', { max: 1 }],
+      'key-spacing': ['error', { beforeColon: false, afterColon: true }],
+      'no-trailing-spaces': ['error'],
+      'padded-blocks': ['error', 'never'],
+      'space-infix-ops': ['error'],
     },
   },
 ];

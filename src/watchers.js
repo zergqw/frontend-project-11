@@ -3,8 +3,7 @@ export default (initState, elements, i18next) => {
   const handleForm = () => {
     const { form: { error, valid } } = initState;
     const { input, feedback } = elements;
-        
-        
+
     if (valid) {
       input.classList.remove('is-invalid');
     } else {
@@ -13,11 +12,11 @@ export default (initState, elements, i18next) => {
       feedback.textContent = i18next.t(`errors.${error}`);
     }
   };
-    
-  const handleFeeds= () => {
+
+  const handleFeeds = () => {
     const { feeds } = initState;
     const { feedsBox } = elements;
-        
+
     const fragmentStructure = document.createElement('div');
     fragmentStructure .classList.add('card', 'border-0');
     fragmentStructure.innerHTML = '<div class =\'card-body\'></div>';
@@ -61,7 +60,7 @@ export default (initState, elements, i18next) => {
 
     const postsList = document.createElement('ul');
     postsList.classList.add('list-group', 'border-0', 'rounded-0');
-        
+
     const postsListItems = posts.map((post) => {
       const element = document.createElement('li');
       element.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start','border-0', 'border-end');
@@ -88,13 +87,13 @@ export default (initState, elements, i18next) => {
     fragmentStructure.appendChild(postsList);
     postBox.innerHTML = '';
     postBox.appendChild(fragmentStructure);
-  };     
+  };
   const handleLoadingProcess = () => {
     const { loadingProcess } = initState;
     const { submit, input, feedback } = elements;
-            
+
     feedback.classList.remove('text-success', 'text-danger');
-            
+
     switch (loadingProcess.status) {
     case 'failed':
       submit.disabled = false;
@@ -119,7 +118,7 @@ export default (initState, elements, i18next) => {
       throw new Error(`Unknown loadingProcess status: ${loadingProcess.status}`);
     }
   };
-        
+
   const handleModal = () => {
     const post = initState.posts.find(({ id }) => id === initState.modal.postId);
     const title = elements.modal.querySelector('.modal-title');
@@ -129,7 +128,6 @@ export default (initState, elements, i18next) => {
     title.textContent = post.title;
     body.textContent = post.description;
     fullArticleBtn.href = post.link;
-
   };
   const watchedState = onChange(initState, (path) => {
     switch (path) {
@@ -155,7 +153,6 @@ export default (initState, elements, i18next) => {
       break;
     }
   });
-    
 
   return watchedState;
 };

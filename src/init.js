@@ -10,7 +10,6 @@ import resources from './locales/index.js';
 import locale from './locales/locale.js';
 import parse from './rss.js';
 
-
 export default () => {
   const fetchingTimeout = 5000;
   const elements = {
@@ -45,10 +44,10 @@ export default () => {
   const initialState = {
     feeds: [],
     posts: [],
-    form:{
-      error:null,
-      valid:false,
-      status:'filling',
+    form: {
+      error: null,
+      valid: false,
+      status: 'filling',
     },
     loadingProcess: {
       status: 'idle',
@@ -67,7 +66,6 @@ export default () => {
     urlWithProxy.searchParams.set('url', url);
     urlWithProxy.searchParams.set('disableCache', true);
     return urlWithProxy.toString();
-
   };
 
   const fetchNewPosts = (watchedState) => {
@@ -114,7 +112,6 @@ export default () => {
         };
       })
       .catch((e) => {
-            
         watchedState.loadingProcess.error = getLoadingProcessErrorType(e);
         watchedState.loadingProcess.status = 'failed';
       });
@@ -132,14 +129,13 @@ export default () => {
         return schema.validate(url)
           .then(() => null)
           .catch((error) => (
-            error.message 
+            error.message
           ));
       };
-    
+
       const watchedState = initView(initialState, elements, i18n);
 
       elements.form.addEventListener('submit', (event) => {
-
         event.preventDefault();
         const data = new FormData(event.target);
         const url = data.get('url');
@@ -159,7 +155,7 @@ export default () => {
                 error: error.key,
                 valid: false,
               };
-            }   
+            }
           });
       });
 
@@ -170,7 +166,7 @@ export default () => {
         const {id} = evt.target.dataset;
         watchedState.modal.postId = String(id);
         watchedState.ui.seenPosts.add(id);
-      });    
+      });
       setTimeout(() => fetchNewPosts(watchedState), fetchingTimeout);
     });
 
