@@ -1,17 +1,21 @@
 import onChange from 'on-change';
 export default (initState, elements, i18next) => {
     const handleForm = () => {
-        const { form: { error, valid } } = initState;
-        const { input, feedback } = elements;
-        
-        if (valid) {
-            input.classList.remove('is-invalid');
-        } else {
-            input.classList.add('is-invalid');
-            feedback.classList.add('text-danger');
-            feedback.textContent = i18next.t(`errors.${error}`);
+    const { form: { error, valid } } = initState;
+    const { input, feedback } = elements;
+    
+    feedback.classList.remove('text-success', 'text-danger');
+    
+    if (valid) {
+        input.classList.remove('is-invalid');
+        feedback.textContent = '';
+    } else {
+        input.classList.add('is-invalid');
+        feedback.classList.add('text-danger');
+        feedback.textContent = i18next.t(`errors.${error}`);
         }
     }
+    
     const handleFeeds= () => {
         const { feeds } = initState;
         const { feedsBox } = elements;
@@ -93,30 +97,27 @@ export default (initState, elements, i18next) => {
         const {submit, input, feedback} = elements
         switch (loadingProcess.status) {
             case 'failed':
-                submit.disabled = false
-                input.removeAttribute('readonly')
-                feedback.classList.add('text-danger')
-                feedback.textContent = i18next.t([`errors.${loadingProcess.error}`, 'errors.unknow'])
-                break
+              submit.disabled = false;
+              input.removeAttribute('readonly');
+              feedback.classList.add('text-danger');
+              feedback.textContent = i18next.t(`errors.${loadingProcess.error}`);
+              break;
             case 'idle':
-                submit.disabled = false
-                input.removeAttribute('readonly')
-                input.value = ''
-                feedback.classList.add('text-success')
-                feedback.textContent = i18next.t('success')
-                input.focus()
-                break  
+              submit.disabled = false;
+              input.removeAttribute('readonly');
+              input.value = '';
+              feedback.classList.add('text-success');
+              feedback.textContent = i18next.t('success');
+              input.focus();
+              break;
             case 'loading':
-                submit.disabled = true
-                input.removeAttribute('readonly', true)
-                feedback.classList.remove('text-success')
-                feedback.classList.remove('text-danger')
-                feedback.textContent = ''
-                break 
+              submit.disabled = true;
+              input.setAttribute('readonly', true);
+              feedback.textContent = '';
+              break;
             default:
-                throw new Error(`'Unknown loadingProcess status: '${loadingProcess.status}`)
-
-        }
+              throw new Error(`Unknown loadingProcess status: ${loadingProcess.status}`);
+          }
     }
     const handleModal = () => {
         const post = initState.posts.find(({ id }) => id === initState.modal.postId);

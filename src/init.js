@@ -23,15 +23,24 @@ export default () => {
         modal: document.querySelector('#modal'),
       };
 
-    const getLoadingProcessErrorType = (e) => {
+      const getLoadingProcessErrorType = (e) => {
         if (e.isParsingError) {
-            return 'noRss'
+          return 'noRSS';
         }
         if (e.isAxiosError) {
-            return 'network'
+          return 'network';
         }
-        return 'unknow'
-    }
+        if (e.message === 'empty') {
+          return 'empty';
+        }
+        if (e.message === 'notUrl') {
+          return 'notUrl';
+        }
+        if (e.message === 'exists') {
+          return 'exists';
+        }
+        return 'unknow';
+      };
 
     const initialState = {
         feeds: [],
@@ -116,12 +125,14 @@ export default () => {
       .then(() => {
         yup.setLocale(locale);
         const validateUrl = (url, feeds) => {
-            const feedUrl = feeds.map((feed) => feed.url)
-            const schema = yup.string().url().required().notOneOf(feedUrl)
+            const feedUrls = feeds.map((feed) => feed.url);
+            const schema = yup.string().url().required().notOneOf(feedUrls);
             return schema.validate(url)
-            .then(() => null)
-            .catch((error) => error.message )
-        }
+              .then(() => null)
+              .catch((error) => ({
+                key: error.message 
+              }));
+          };
     
         const watchedState = initView(initialState, elements, i18n);
 
