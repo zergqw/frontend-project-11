@@ -19,7 +19,7 @@ export default {
               },
             },
           },
-          'postcss-loader'
+          'postcss-loader',
         ],
       },
       {

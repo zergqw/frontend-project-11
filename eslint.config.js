@@ -1,5 +1,6 @@
-import globals from 'globals';
-import pluginJs from '@eslint/js';
+import globals from "globals";
+import pluginJs from "@eslint/js";
+import pluginImport from "eslint-plugin-import";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -10,7 +11,11 @@ export default [
   },
   pluginJs.configs.recommended,
   {
+    plugins: {
+      import: pluginImport,
+    },
     rules: {
+      'no-param-reassign': ['error', { props: false }],
       indent: ['error', 2],
       semi: ['error', 'always'],
       'quote-props': ['error', 'as-needed'],
@@ -20,6 +25,10 @@ export default [
       'no-trailing-spaces': ['error'],
       'padded-blocks': ['error', 'never'],
       'space-infix-ops': ['error'],
+      'import/newline-after-import': ['error', { count: 1 }],
+      'import/order': ['error', { 'newlines-between': 'always' }], // Дополнительно для порядка импорта
+      'no-whitespace-before-property': ['error'],
+      'comma-dangle': ['error', 'always-multiline'],
     },
   },
 ];

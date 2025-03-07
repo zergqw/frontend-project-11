@@ -1,4 +1,5 @@
 import onChange from 'on-change';
+
 export default (initState, elements, i18next) => {
   const handleForm = () => {
     const { form: { error, valid } } = initState;
@@ -18,7 +19,7 @@ export default (initState, elements, i18next) => {
     const { feedsBox } = elements;
 
     const fragmentStructure = document.createElement('div');
-    fragmentStructure .classList.add('card', 'border-0');
+    fragmentStructure.classList.add('card', 'border-0');
     fragmentStructure.innerHTML = '<div class =\'card-body\'></div>';
 
     const feedsTitle = document.createElement('h2');
