@@ -1,10 +1,10 @@
 export default {
   string: {
-    url: () => ( {key: 'notUrl'} ),
+    url: () => ({ key: 'notUrl' }),
 
   },
   mixed: {
-    required: () => ( {key: 'empty'} ),
-    notOneOf: () => ( {key: 'exists'} ),
+    required: () => ({ key: 'empty' }),
+    notOneOf: () => ({ key: 'exists' }),
   },
 };
