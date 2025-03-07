@@ -90,7 +90,7 @@ export default () => {
   };
 
   const loadRss = (watchedState, url) => {
-    const updatedState = { ...watchedState, newProp: value }
+    const updatedState = { ...watchedState }
     updatedState.loadingProcess.status = 'loading';
     const urlWithProxy = addProxy(url);
     return axios.get(urlWithProxy)
