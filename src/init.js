@@ -89,8 +89,9 @@ export default () => {
     });
   };
 
-  const loadRss = (watchedState1, url) => {
-    watchedState1.loadingProcess.status = 'loading';
+  const loadRss = (watchedState, url) => {
+    const updatedState = { ...watchedState, newProp: value }
+    updatedState.loadingProcess.status = 'loading';
     const urlWithProxy = addProxy(url);
     return axios.get(urlWithProxy)
       .then((response) => {
@@ -99,13 +100,13 @@ export default () => {
           url, id: _.uniqueId(), title: data.title, description: data.description,
         };
         const posts = data.items.map((item) => ({ ...item, channelId: feed.id, id: _.uniqueId() }));
-        watchedState1.posts.unshift(...posts);
-        watchedState1.feeds.unshift(feed);
+        updatedState.posts.unshift(...posts);
+        updatedState.feeds.unshift(feed);
 
-        watchedState1.loadingProcess.error = null;
-        watchedState1.loadingProcess.status = 'idle';
-        watchedState1.form = {
-          ...watchedState1.form,
+        updatedState.loadingProcess.error = null;
+        updatedState.loadingProcess.status = 'idle';
+        updatedState.form = {
+          ...updatedState.form,
           status: 'filling',
           error: null,
         };
