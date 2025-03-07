@@ -96,28 +96,28 @@ export default (initState, elements, i18next) => {
     feedback.classList.remove('text-success', 'text-danger');
 
     switch (loadingProcess.status) {
-        case 'failed':
-            submit.disabled = false;
-            input.removeAttribute('readonly');
-            feedback.classList.add('text-danger');
-            feedback.textContent = i18next.t(`errors.${loadingProcess.error}`);
-            break;
-        case 'idle':
-            submit.disabled = false;
-            input.removeAttribute('readonly');
-            input.value = '';
-            feedback.classList.add('text-success');
-            feedback.textContent = i18next.t('success');
-            input.focus();
-            break;
-        case 'loading':
-            submit.disabled = true;
-            input.setAttribute('readonly', true);
-            feedback.textContent = '';
-            break;
-        default:
-            throw new Error(`Unknown loadingProcess status: ${loadingProcess.status}`);
-        }
+      case 'failed':
+        submit.disabled = false;
+        input.removeAttribute('readonly');
+        feedback.classList.add('text-danger');
+        feedback.textContent = i18next.t(`errors.${loadingProcess.error}`);
+        break;
+      case 'idle':
+        submit.disabled = false;
+        input.removeAttribute('readonly');
+        input.value = '';
+        feedback.classList.add('text-success');
+        feedback.textContent = i18next.t('success');
+        input.focus();
+        break;
+      case 'loading':
+        submit.disabled = true;
+        input.setAttribute('readonly', true);
+        feedback.textContent = '';
+        break;
+      default:
+        throw new Error(`Unknown loadingProcess status: ${loadingProcess.status}`);
+    }
   };
 
   const handleModal = () => {
@@ -132,25 +132,25 @@ export default (initState, elements, i18next) => {
   };
   const watchedState = onChange(initState, (path) => {
     switch (path) {
-        case 'form':
+      case 'form':
         handleForm();
         break;
-        case 'feeds':
+      case 'feeds':
         handleFeeds();
         break;
-        case 'loadingProcess.status':
+      case 'loadingProcess.status':
         handleLoadingProcess();
         break;
-        case 'posts':
+      case 'posts':
         handlePosts();
         break;
-        case 'modal.postId':
+      case 'modal.postId':
         handleModal();
         break;
-        case 'ui.seenPosts':
+      case 'ui.seenPosts':
         handlePosts();
         break;
-        default:
+      default:
         break;
     }
   });
