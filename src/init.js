@@ -113,6 +113,7 @@ export default () => {
                     };
         })
         .catch((e) => {
+            
             watchedState.loadingProcess.error = getLoadingProcessErrorType(e);
             watchedState.loadingProcess.status = 'failed';
         });
@@ -125,13 +126,13 @@ export default () => {
       .then(() => {
         yup.setLocale(locale);
         const validateUrl = (url, feeds) => {
-            const feedUrls = feeds.map((feed) => feed.url);
-            const schema = yup.string().url().required().notOneOf(feedUrls);
+            const feedUrl = feeds.map((feed) => feed.url)
+            const schema = yup.string().url().required().notOneOf(feedUrl)
             return schema.validate(url)
               .then(() => null)
-              .catch((error) => ({
-                key: error.message 
-              }));
+              .catch((error) => (
+                error.message 
+              ));
           };
     
         const watchedState = initView(initialState, elements, i18n);
@@ -144,6 +145,7 @@ export default () => {
 
             validateUrl(url, watchedState.feeds)
                 .then((error) => {
+                    console.log(error?.key?.key)
                     if (!error) {
                         watchedState.form = {
                             ...watchedState.form,
