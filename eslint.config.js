@@ -16,8 +16,8 @@ export default [
     },
     rules: {
       'no-param-reassign': ['error', { props: false }],
-      indent: ['error', 2],
-      semi: ['error', 'always'],
+      'indent': ['error', 2],
+      'semi': ['error', 'always'],
       'quote-props': ['error', 'as-needed'],
       'eol-last': ['error', 'always'],
       'no-multiple-empty-lines': ['error', { max: 1 }],
@@ -26,7 +26,7 @@ export default [
       'padded-blocks': ['error', 'never'],
       'space-infix-ops': ['error'],
       'import/newline-after-import': ['error', { count: 1 }],
-      'import/order': ['error', { 'newlines-between': 'always' }], // Дополнительно для порядка импорта
+      'import/order': ['error', { 'newlines-between': 'always' }],
       'no-whitespace-before-property': ['error'],
       'comma-dangle': ['error', 'always-multiline'],
     },

@@ -162,7 +162,7 @@ export default () => {
         if (!('id' in evt.target.dataset)) {
           return;
         }
-        const {id} = evt.target.dataset;
+        const { id } = evt.target.dataset;
         watchedState.modal.postId = String(id);
         watchedState.ui.seenPosts.add(id);
       });
