@@ -4,11 +4,9 @@ export default (initState, elements, i18next) => {
     const { form: { error, valid } } = initState;
     const { input, feedback } = elements;
     
-    feedback.classList.remove('text-success', 'text-danger');
     
     if (valid) {
         input.classList.remove('is-invalid');
-        feedback.textContent = '';
     } else {
         input.classList.add('is-invalid');
         feedback.classList.add('text-danger');
@@ -113,6 +111,8 @@ export default (initState, elements, i18next) => {
             case 'loading':
               submit.disabled = true;
               input.setAttribute('readonly', true);
+              feedback.classList.remove('text-success')
+              feedback.classList.remove('text-danger')
               feedback.textContent = '';
               break;
             default:
