@@ -112,8 +112,8 @@ export default () => {
         };
       })
       .catch((e) => {
-        watchedState1.loadingProcess.error = getLoadingProcessErrorType(e);
-        watchedState1.loadingProcess.status = 'failed';
+        updatedState.loadingProcess.error = getLoadingProcessErrorType(e);
+        updatedState.loadingProcess.status = 'failed';
       });
   };
   const i18n = i18next.createInstance();
